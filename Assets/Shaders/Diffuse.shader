@@ -1,6 +1,6 @@
 Shader "Custom/Diffuse"
 {
-	Properties
+	Properties // PAINNNNNN
     {
         _Color ("Color", Color) = (1.0, 1.0, 1.0, 1.0) // Color property
         _MainTex ("Main Texture", 2D) = "white" {} // Main texture
@@ -13,7 +13,7 @@ Shader "Custom/Diffuse"
         Tags 
         { 
             "LightMode" = "ForwardBase"
-            "RenderType" = "Opaque"
+            "RenderType" = "Opaque" 
         }
 
         Pass
@@ -90,7 +90,6 @@ Shader "Custom/Diffuse"
                 // Final color output
                 return float4(diffuseReflection, baseColor.a);
             }
-
             ENDCG
         }
 		// Fallback "Diffuse"

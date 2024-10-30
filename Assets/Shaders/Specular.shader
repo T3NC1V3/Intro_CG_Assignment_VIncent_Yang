@@ -71,13 +71,13 @@ Shader "Custom/Specular"
             }
 
             // Fragment shader
-            float4 frag(vertexOutput i) : COLOR
+            float4 frag(vertexOutput i) : SV_Target
             {
                 // Sample the main texture
                 float4 baseColor = tex2D(_MainTex, i.uv) * _Color;
 
                 // Sample the normal map and transform to [-1, 1]
-                float3 tangentNormal = tex2D(_NormalMap, i.uv).xyz * 2.0 - 1.0;
+                float3 tangentNormal = tex2D(_NormalMap, i.uv).xyz * 2.0 - 1.0;S
 
                 // Transform tangent space normal to world space
                 float3 N = normalize(i.normalDir.xyz); // Normal in world space
