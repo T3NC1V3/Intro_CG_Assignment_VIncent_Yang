@@ -1,4 +1,5 @@
 (Used a converter, I am not too familiar with Markdown)
+(PDF version of explanation in releases)
 
 How to play:
 WASD for movement, LShift to sprint.
