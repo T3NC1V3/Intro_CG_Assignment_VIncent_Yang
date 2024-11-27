@@ -3,7 +3,7 @@ Shader "Custom/Ambient"
 	Properties
     {
         _Color ("Color", Color) = (1.0,1.0,1.0,1.0)
-        _myNormal ("Normal Map", 2D) = "bump" {}  // Normal map texture
+        _NormalMap ("Normal Map", 2D) = "bump" {}  // Normal map texture
          _MainTex ("Main Texture", 2D) = "white" {} // Main texture
         _mySlider ("Height", Range(0,10)) = 1     // Intensity slider for effect
     }
@@ -22,12 +22,15 @@ Shader "Custom/Ambient"
 
             #pragma vertex vert
             #pragma fragment frag
+
             #include "UnityCG.cginc"
+            #include "UnityLightingCommon.cginc"
+            #include "Lighting.cginc"
+            #include "AutoLight.cginc"
 
             // Properties and uniforms
             uniform float4 _Color;
-            uniform sampler2D _myNormal;
-            uniform float4 _LightColor0;
+            uniform sampler2D _NormalMap;
 
             // Structs
             struct vertexInput {
@@ -69,7 +72,7 @@ Shader "Custom/Ambient"
             float4 frag(vertexOutput i) : SV_Target
             {
                 // Sample the normal map and transform from [0,1] to [-1,1]
-                float3 tangentNormal = tex2D(_myNormal, i.uv).xyz * 2.0 - 1.0;
+                float3 tangentNormal = tex2D(_NormalMap, i.uv).xyz * 2.0 - 1.0;
 
                 // Transform tangent space normal to world space
                 float3 worldNormal = normalize(
@@ -91,7 +94,47 @@ Shader "Custom/Ambient"
             }
 
             ENDCG
+
 		}
+
+        Pass
+        {
+            Tags 
+            {
+                "LightMode" = "ShadowCaster"
+            }
+
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile_shadowcaster
+            #include "UnityCG.cginc"
+
+            struct appdata 
+            {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 texcoord : TEXCOORD0;
+            };
+
+            struct v2f 
+            {
+                V2F_SHADOW_CASTER;
+            };
+                
+            v2f vert(appdata v)
+            {
+                v2f o;
+                TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
+                return o;
+            }
+
+            float4 frag(v2f i) : SV_Target
+            {
+                SHADOW_CASTER_FRAGMENT(i)
+            }
+            ENDCG
+        }
 		// Fallback "Diffuse"
 	}
 }

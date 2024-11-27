@@ -12,7 +12,7 @@ Shader "Custom/Diffuse"
     {
         Tags 
         { 
-            "LightMode" = "ForwardBase"
+            "LightMode" = "ForwardAdd"
             "RenderType" = "Opaque" 
         }
 
@@ -23,13 +23,15 @@ Shader "Custom/Diffuse"
             #pragma vertex vert
             #pragma fragment frag
 
+            #include "UnityCG.cginc"
+            #include "UnityLightingCommon.cginc"
+            #include "Lighting.cginc"
+            #include "AutoLight.cginc"
+
             // User variables
             uniform float4 _Color;
             uniform sampler2D _MainTex;      // Main texture
             uniform sampler2D _NormalMap;    // Normal map texture
-            
-            // Unity variables
-            uniform float4 _LightColor0;
 
             // Base input struct
             struct vertexInput {
@@ -62,7 +64,6 @@ Shader "Custom/Diffuse"
                 o.worldTangent = normalize(mul((float3x3)unity_ObjectToWorld, v.tangent.xyz));
                 o.worldBinormal = cross(o.worldNormal, o.worldTangent) * v.tangent.w; // Calculate the binormal
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz; // World position
-
                 return o;
             }
 
@@ -92,6 +93,46 @@ Shader "Custom/Diffuse"
             }
             ENDCG
         }
+
+        Pass
+        {
+            Tags 
+            {
+                "LightMode" = "ShadowCaster"
+            }
+
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile_shadowcaster
+            #include "UnityCG.cginc"
+
+            struct appdata 
+            {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 texcoord : TEXCOORD0;
+            };
+
+            struct v2f 
+            {
+                V2F_SHADOW_CASTER;
+            };
+                
+            v2f vert(appdata v)
+            {
+                v2f o;
+                TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
+                return o;
+            }
+
+            float4 frag(v2f i) : SV_Target
+            {
+                SHADOW_CASTER_FRAGMENT(i)
+            }
+            ENDCG
+        }
+
 		// Fallback "Diffuse"
 	}
 }

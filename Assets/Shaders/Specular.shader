@@ -22,15 +22,16 @@ Shader "Custom/Specular"
             #pragma vertex vert
             #pragma fragment frag
 
+            #include "UnityCG.cginc"
+            #include "UnityLightingCommon.cginc"
+            #include "Lighting.cginc"
+            #include "AutoLight.cginc"
+
             // User variables
             uniform float4 _Color;
-            uniform float4 _SpecColor;
             uniform float _Shininess;
             uniform sampler2D _MainTex;      // Main texture
             uniform sampler2D _NormalMap;    // Normal map texture
-
-            // Unity variables
-            uniform float4 _LightColor0;
 
             // Structs
             struct vertexInput {
@@ -77,7 +78,7 @@ Shader "Custom/Specular"
                 float4 baseColor = tex2D(_MainTex, i.uv) * _Color;
 
                 // Sample the normal map and transform to [-1, 1]
-                float3 tangentNormal = tex2D(_NormalMap, i.uv).xyz * 2.0 - 1.0;S
+                float3 tangentNormal = tex2D(_NormalMap, i.uv).xyz * 2.0 - 1.0;
 
                 // Transform tangent space normal to world space
                 float3 N = normalize(i.normalDir.xyz); // Normal in world space
@@ -105,6 +106,45 @@ Shader "Custom/Specular"
                 float3 lightFinal = diffuseReflection + specularReflection + UNITY_LIGHTMODEL_AMBIENT.rgb;
 
                 return float4(lightFinal * baseColor.rgb, 1.0);
+            }
+            ENDCG
+        }
+
+        Pass
+        {
+            Tags 
+            {
+                "LightMode" = "ShadowCaster"
+            }
+
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma multi_compile_shadowcaster
+            #include "UnityCG.cginc"
+
+            struct appdata 
+            {
+                float4 vertex : POSITION;
+                float3 normal : NORMAL;
+                float4 texcoord : TEXCOORD0;
+            };
+
+            struct v2f 
+            {
+                V2F_SHADOW_CASTER;
+            };
+                
+            v2f vert(appdata v)
+            {
+                v2f o;
+                TRANSFER_SHADOW_CASTER_NORMALOFFSET(o)
+                return o;
+            }
+
+            float4 frag(v2f i) : SV_Target
+            {
+                SHADOW_CASTER_FRAGMENT(i)
             }
             ENDCG
         }

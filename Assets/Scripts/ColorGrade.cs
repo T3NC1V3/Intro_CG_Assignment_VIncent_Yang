@@ -8,7 +8,6 @@ public class ColorGrade : MonoBehaviour
     public Material lutMaterial;
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        Debug.Log("OnRenderImage called"); // Check if this message appears
         if (lutMaterial != null)
         {
             Graphics.Blit(source, destination, lutMaterial);
