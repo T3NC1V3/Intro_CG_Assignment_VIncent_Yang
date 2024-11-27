@@ -1,7 +1,8 @@
 (Used a converter, I am not too familiar with Markdown)
 (PDF version of explanation in releases)
 
-REPORT LINK: https://drive.google.com/file/d/1rWp8bpJyk5ccEBQKRBX81G21MiYgfBj_/view?usp=sharing
+REPORT Video LINK: https://drive.google.com/file/d/1rWp8bpJyk5ccEBQKRBX81G21MiYgfBj_/view?usp=sharing
+Image doc: Report(1).pdf, in Release 2
 
 How to play:
 WASD for movement, LShift to sprint.
