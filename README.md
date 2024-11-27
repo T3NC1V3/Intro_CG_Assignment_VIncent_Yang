@@ -4,9 +4,12 @@
 How to play:
 WASD for movement, LShift to sprint.
 
-JKLU for different color grading filters and tints, J is Warm, K is Custom, L is Cool, and K is Cold.
+JKLU for different color grading filters and tints, J is Warm, K is Custom, L is Cool, and K is Cold. P to Disable textures (im most familiar with the jkluiop FGC hotkeys)
 
 1,2 and 3 keys are for the different light setups. 1 is diffuse, 2 is ambient and 3 is specular(the least bugged in my opinion.
+
+Updates:
+LUT contribution lowered to allow better visibility
 
 Documentation/Explanation:
 
