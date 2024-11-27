@@ -2250,6 +2250,8 @@ GameObject:
   - component: {fileID: 472199326}
   - component: {fileID: 472199325}
   - component: {fileID: 472199324}
+  - component: {fileID: 472199329}
+  - component: {fileID: 472199328}
   m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
@@ -2299,21 +2301,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetMaterial: {fileID: 2100000, guid: 5250d29abd5338545b0a063639571dbb, type: 2}
   toggleKey: 112
---- !u!4 &472199327
-Transform:
+--- !u!224 &472199327
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 472199323}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 412.24197, y: -383.07407, z: 323.27618}
+  m_LocalPosition: {x: 0, y: 0, z: 323.27618}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 412.24197, y: -383.07407}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &472199328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472199323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6571ca22816577741a28eb49d17be7d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMaterial: {fileID: 2100000, guid: 6685d694a878f614db5ecc4312bb2321, type: 2}
+  toggleKey: 112
+--- !u!114 &472199329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472199323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6571ca22816577741a28eb49d17be7d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetMaterial: {fileID: 2100000, guid: a609133e9c6340847922fb3fdd70afcf, type: 2}
+  toggleKey: 112
 --- !u!1 &473522347
 GameObject:
   m_ObjectHideFlags: 0
